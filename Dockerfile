@@ -1,16 +1,20 @@
 # Smallstep CA with PKCS#11 support
 
-FROM golang:alpine AS builder
+ARG SMALLSTEP_CA_VERSION=0.0.0
 
-RUN apk add --no-cache curl git make gcc musl-dev pkgconf pcsc-lite-dev
-RUN git clone https://github.com/smallstep/certificates /src
+
+FROM golang:alpine AS builder
+ARG SMALLSTEP_CA_VERSION
+
+RUN apk add --no-cache curl make git bash gcc musl-dev pkgconf pcsc-lite-dev
 
 WORKDIR /src
 
+RUN curl -L https://github.com/smallstep/certificates/releases/download/v${SMALLSTEP_CA_VERSION}/step-ca_${SMALLSTEP_CA_VERSION}.tar.gz | tar xzf -
 RUN make GOFLAGS="" build && make V=1 GOFLAGS="" bin/step-ca
 
 
-FROM smallstep/step-cli:latest
+FROM smallstep/step-cli:${SMALLSTEP_CA_VERSION}
 
 COPY --from=builder /src/bin/step-ca            /usr/local/bin/step-ca
 COPY --from=builder /src/bin/step-awskms-init   /usr/local/bin/step-awskms-init
