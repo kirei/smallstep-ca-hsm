@@ -6,7 +6,8 @@ ARG SMALLSTEP_CA_VERSION=0.0.0
 FROM golang:alpine AS builder
 ARG SMALLSTEP_CA_VERSION
 
-RUN apk add --no-cache curl make git bash gcc musl-dev pkgconf pcsc-lite-dev
+RUN apk add --no-cache curl git make
+RUN apk add --no-cache gcc musl-dev pkgconf pcsc-lite-dev
 
 WORKDIR /src
 
