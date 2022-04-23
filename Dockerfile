@@ -1,4 +1,4 @@
-# Smallstep CA with PKCS#11 support
+# Smallstep CA with HSM support
 
 ARG SMALLSTEP_CA_VERSION=0.0.0
 
@@ -11,7 +11,7 @@ RUN apk add --no-cache curl make git bash gcc musl-dev pkgconf pcsc-lite-dev
 WORKDIR /src
 
 RUN curl -L https://github.com/smallstep/certificates/releases/download/v${SMALLSTEP_CA_VERSION}/step-ca_${SMALLSTEP_CA_VERSION}.tar.gz | tar xzf -
-RUN make GOFLAGS="" build && make V=1 GOFLAGS="" bin/step-ca
+RUN make GOFLAGS="" V=1 build
 
 
 FROM smallstep/step-cli:${SMALLSTEP_CA_VERSION}

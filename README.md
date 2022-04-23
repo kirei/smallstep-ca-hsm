@@ -1,6 +1,6 @@
-# Smallstep CA with PKCS\#11
+# Smallstep CA with HSM
 
-Build a container with Smallstep CA with support for PKCS\#11.
+Build a container with Smallstep CA with support for HSM/PKCS\#11.
 
 ## References
 
