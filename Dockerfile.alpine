@@ -1,4 +1,4 @@
-# Smallstep CA with HSM support
+# Smallstep CA with HSM support (Alpine)
 
 ARG SMALLSTEP_CA_VERSION=0.0.0
 
