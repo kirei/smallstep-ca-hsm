@@ -3,12 +3,8 @@ IMAGE_BASENAME=	step-ca
 
 all: default
 
-default:
-	docker build \
-		-f Dockerfile.fedora \
-		--build-arg SMALLSTEP_CLI_VERSION=${VERSION} \
-		--build-arg SMALLSTEP_CA_VERSION=${VERSION} \
-		-t ${IMAGE_BASENAME}:${VERSION}-hsm .
+default: fedora
+	docker tag ${IMAGE_BASENAME}:${VERSION}-hsm-fedora ${IMAGE_BASENAME}:${VERSION}-hsm
 
 fedora:
 	docker build \
